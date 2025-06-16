@@ -1,0 +1,26 @@
+{
+  "description": "Beispiel-Konfiguration für ARXML-Merger",
+  "merge": {
+    "strategy": "conservative",
+    "validation_level": "structure",
+    "generate_reports": true,
+    "pretty_print": true,
+    "backup_originals": true
+  },
+  "validation": {
+    "check_schema": true,
+    "check_references": true,
+    "autosar_versions": ["4.2.1", "4.3.0", "4.4.0"]
+  },
+  "reporting": {
+    "generate_html": true,
+    "generate_json": true,
+    "generate_csv": true,
+    "include_signal_inventory": true
+  },
+  "web": {
+    "host": "localhost",
+    "port": 8000,
+    "max_upload_size_mb": 50
+  }
+}
