@@ -1,0 +1,27 @@
+{
+  "description": "Beispiel-Konfliktauflösungsregeln für ARXML-Merger",
+  "version": "1.0",
+  "rules": [
+    {
+      "element_type": "I-SIGNAL",
+      "conflict_type": "duplicate_element",
+      "resolution_strategy": "keep_first",
+      "priority": 10,
+      "description": "Signale: Erste Datei hat Priorität"
+    },
+    {
+      "element_type": "SENDER-RECEIVER-INTERFACE",
+      "conflict_type": "different_attributes",
+      "resolution_strategy": "merge_attributes",
+      "priority": 8,
+      "description": "SR-Interfaces: Attribute zusammenführen"
+    },
+    {
+      "element_type": "ECU-INSTANCE",
+      "conflict_type": "duplicate_element",
+      "resolution_strategy": "user_choice",
+      "priority": 15,
+      "description": "ECU-Instanzen: Benutzer entscheidet"
+    }
+  ]
+}

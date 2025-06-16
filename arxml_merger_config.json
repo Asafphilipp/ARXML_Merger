@@ -1,0 +1,54 @@
+{
+  "merge": {
+    "strategy": "conservative",
+    "validation_level": "structure",
+    "generate_reports": true,
+    "pretty_print": true,
+    "validate_output": true,
+    "backup_originals": false,
+    "max_file_size_mb": 100,
+    "timeout_seconds": 300,
+    "parallel_processing": true,
+    "preserve_comments": true
+  },
+  "validation": {
+    "check_schema": true,
+    "check_references": true,
+    "check_signal_integrity": true,
+    "autosar_versions": [
+      "4.2.1",
+      "4.3.0",
+      "4.4.0",
+      "4.5.0"
+    ],
+    "custom_schema_path": null,
+    "strict_mode": false
+  },
+  "reporting": {
+    "generate_html": true,
+    "generate_json": true,
+    "generate_csv": true,
+    "include_signal_inventory": true,
+    "include_conflict_details": true,
+    "include_performance_metrics": true,
+    "output_directory": "reports",
+    "template_path": null
+  },
+  "web": {
+    "host": "localhost",
+    "port": 8000,
+    "max_upload_size_mb": 50,
+    "session_timeout_minutes": 60,
+    "enable_cors": true,
+    "debug_mode": false,
+    "static_files_path": "static"
+  },
+  "performance": {
+    "max_memory_usage_mb": 1024,
+    "chunk_size_kb": 64,
+    "enable_streaming": true,
+    "parallel_workers": 4,
+    "cache_parsed_files": true,
+    "compression_level": 6
+  }
+}

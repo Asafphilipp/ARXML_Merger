@@ -1,0 +1,29 @@
+# ARXML-Merger Requirements
+# Core dependencies for the robust AUTOSAR ARXML merger
+
+# XML processing and validation
+lxml>=4.9.0
+xmlschema>=2.0.0
+
+# Character encoding detection
+chardet>=5.0.0
+
+# System monitoring for performance metrics
+psutil>=5.9.0
+
+# Optional: Enhanced XML processing
+defusedxml>=0.7.1
+
+# Optional: Advanced validation
+xmltodict>=0.13.0
+
+# Development dependencies (optional)
+# pytest>=7.0.0
+# pytest-cov>=4.0.0
+# black>=22.0.0
+# flake8>=5.0.0
+# mypy>=0.991
+
+# Documentation (optional)
+# sphinx>=5.0.0
+# sphinx-rtd-theme>=1.0.0
