@@ -1,21 +1,21 @@
 # ARXML Merger
 
-Dieses Repository enthält ein einfaches Python-Skript, das mehrere AUTOSAR
-ARXML-Dateien zu einer gemeinsamen Ausgabedatei zusammenführt.
+Dieses Repository enthält ein einfaches Python-Skript, das mehrere AUTOSAR-ARXML-Dateien zu einer gemeinsamen Ausgabedatei zusammenführt.
 
 ## Voraussetzungen
 * Python 3.10 oder neuer (bereits in dieser Umgebung vorhanden)
 
 ## Verwendung
 ```bash
-python3 arxml_merger.py output.arxml input1.arxml input2.arxml [...]
+python3 arxml_merger.py [--strategy latest-wins] output.arxml input1.arxml input2.arxml [...]
 ```
 Das Skript liest alle angegebenen Eingabedateien, überspringt ungültige
 Dateien und schreibt das Ergebnis nach `output.arxml`.
 
 ## Aktueller Funktionsumfang
-* Einfache Zusammenführung der Root-Elemente aus mehreren Dateien
+* Zusammenführung der `AR-PACKAGES`-Sektionen aus mehreren Dateien
 * Warnungen bei ungültig formatierten Eingabedateien
+* Wählbare Konfliktstrategie (`conservative` oder `latest-wins`)
 
 ## Geplante Erweiterungen (Auszug)
 * Vollständige Signal-Preservation und Referenz-Integrität
