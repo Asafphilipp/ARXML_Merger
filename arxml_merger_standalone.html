@@ -443,43 +443,80 @@
         }
         
         async function performSimpleMerge() {
-            // Read all files
-            const fileContents = [];
-            for (let file of uploadedFiles) {
-                const content = await readFileAsText(file);
-                fileContents.push(content);
-            }
-            
-            // Simple merge strategy: combine all AR-PACKAGES
-            let mergedContent = `<?xml version="1.0" encoding="UTF-8"?>
-<AUTOSAR xmlns="http://autosar.org/schema/r4.0" 
+            try {
+                // Read all files
+                const fileContents = [];
+                for (let file of uploadedFiles) {
+                    const content = await readFileAsText(file);
+                    fileContents.push({content: content, filename: file.name});
+                }
+
+                // Simple merge strategy: combine all AR-PACKAGES
+                let mergedContent = `<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-0.xsd">
   <AR-PACKAGES>
+    <!-- Merged from ${fileContents.length} files -->
 `;
-            
-            // Extract and merge AR-PACKAGES from each file
-            for (let i = 0; i < fileContents.length; i++) {
-                const content = fileContents[i];
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(content, 'text/xml');
-                
-                // Find AR-PACKAGES
-                const arPackages = doc.getElementsByTagName('AR-PACKAGES');
-                if (arPackages.length > 0) {
-                    const packages = arPackages[0].getElementsByTagName('AR-PACKAGE');
-                    for (let pkg of packages) {
-                        const serializer = new XMLSerializer();
-                        const pkgString = serializer.serializeToString(pkg);
-                        mergedContent += '    ' + pkgString + '\n';
+
+                // Extract and merge AR-PACKAGES from each file
+                for (let i = 0; i < fileContents.length; i++) {
+                    const fileData = fileContents[i];
+                    mergedContent += `    <!-- From file: ${fileData.filename} -->\n`;
+
+                    try {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(fileData.content, 'text/xml');
+
+                        // Check for parsing errors
+                        const parseError = doc.querySelector('parsererror');
+                        if (parseError) {
+                            console.warn(`Parse error in ${fileData.filename}:`, parseError.textContent);
+                            continue;
+                        }
+
+                        // Find AR-PACKAGES - try different approaches
+                        let arPackages = doc.getElementsByTagName('AR-PACKAGES');
+                        if (arPackages.length === 0) {
+                            // Try with namespace
+                            arPackages = doc.getElementsByTagNameNS('*', 'AR-PACKAGES');
+                        }
+
+                        if (arPackages.length > 0) {
+                            const packages = arPackages[0].children;
+                            for (let j = 0; j < packages.length; j++) {
+                                const pkg = packages[j];
+                                if (pkg.nodeName.includes('AR-PACKAGE')) {
+                                    const serializer = new XMLSerializer();
+                                    const pkgString = serializer.serializeToString(pkg);
+                                    mergedContent += '    ' + pkgString + '\n';
+                                }
+                            }
+                        } else {
+                            // Fallback: try to extract any AR-PACKAGE directly
+                            const directPackages = doc.getElementsByTagName('AR-PACKAGE');
+                            for (let j = 0; j < directPackages.length; j++) {
+                                const pkg = directPackages[j];
+                                const serializer = new XMLSerializer();
+                                const pkgString = serializer.serializeToString(pkg);
+                                mergedContent += '    ' + pkgString + '\n';
+                            }
+                        }
+                    } catch (error) {
+                        console.error(`Error processing ${fileData.filename}:`, error);
+                        mergedContent += `    <!-- Error processing ${fileData.filename}: ${error.message} -->\n`;
                     }
                 }
-            }
-            
-            mergedContent += `  </AR-PACKAGES>
+
+                mergedContent += `  </AR-PACKAGES>
 </AUTOSAR>`;
-            
-            return mergedContent;
+
+                return mergedContent;
+
+            } catch (error) {
+                throw new Error(`Merge failed: ${error.message}`);
+            }
         }
         
         function readFileAsText(file) {

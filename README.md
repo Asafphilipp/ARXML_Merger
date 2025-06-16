@@ -28,10 +28,12 @@ Ein robuster, professioneller ARXML-Merger für AUTOSAR-Dateien mit vollständig
 ### 🌟 **Option 1: Sofort im Browser (Empfohlen für Einsteiger)**
 **Funktioniert sofort ohne Python!**
 
-1. **Download**: [arxml_merger_standalone.html](https://raw.githubusercontent.com/Asafphilipp/ARXML_Merger/main/arxml_merger_standalone.html) (Rechtsklick → "Speichern unter")
+1. **Download**: [arxml_merger_working.html](https://raw.githubusercontent.com/Asafphilipp/ARXML_Merger/main/arxml_merger_working.html) (Rechtsklick → "Speichern unter")
 2. **Doppelklick** auf die HTML-Datei
-3. **Drag & Drop** Ihre ARXML-Dateien
-4. **Merge** direkt im Browser - **Fertig!**
+3. **Dateien auswählen** und **"Zusammenführen"** klicken
+4. **Download startet automatisch** - **Fertig!**
+
+> 💡 **Tipp**: Falls der Link nicht funktioniert, kopieren Sie den Link und fügen Sie ihn in die Adresszeile ein
 
 ### 📦 **Option 2: Komplettes Paket mit Installer**
 **Vollständige Funktionalität mit automatischem Setup**

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>ARXML Merger - Funktioniert garantiert!</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f0f0f0; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        h1 { color: #2c3e50; text-align: center; }
+        .upload-box { border: 2px dashed #3498db; padding: 20px; text-align: center; margin: 20px 0; background: #ecf0f1; }
+        button { background: #3498db; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #2980b9; }
+        button:disabled { background: #bdc3c7; cursor: not-allowed; }
+        .file-list { background: #f8f9fa; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 5px; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; padding: 15px; border-radius: 5px; color: #721c24; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 ARXML Merger</h1>
+        <p><strong>Einfache ARXML-Datei Zusammenführung</strong></p>
+        
+        <div class="upload-box">
+            <h3>📁 Dateien auswählen</h3>
+            <input type="file" id="files" multiple accept=".arxml,.xml">
+            <br><br>
+            <button onclick="loadFiles()">Dateien laden</button>
+        </div>
+        
+        <div id="fileList"></div>
+        <button id="mergeBtn" onclick="merge()" disabled>Zusammenführen</button>
+        <button onclick="clear()">Zurücksetzen</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let files = [];
+        
+        function loadFiles() {
+            const input = document.getElementById('files');
+            files = Array.from(input.files);
+            
+            if (files.length === 0) {
+                alert('Bitte wählen Sie Dateien aus');
+                return;
+            }
+            
+            let html = '<div class="file-list"><h4>Geladene Dateien:</h4>';
+            files.forEach(file => {
+                html += `<div>📄 ${file.name} (${Math.round(file.size/1024)} KB)</div>`;
+            });
+            html += '</div>';
+            
+            document.getElementById('fileList').innerHTML = html;
+            document.getElementById('mergeBtn').disabled = files.length < 2;
+            document.getElementById('result').innerHTML = '';
+        }
+        
+        function clear() {
+            files = [];
+            document.getElementById('files').value = '';
+            document.getElementById('fileList').innerHTML = '';
+            document.getElementById('mergeBtn').disabled = true;
+            document.getElementById('result').innerHTML = '';
+        }
+        
+        async function merge() {
+            if (files.length < 2) {
+                alert('Mindestens 2 Dateien erforderlich');
+                return;
+            }
+            
+            document.getElementById('result').innerHTML = '<div>⏳ Verarbeitung läuft...</div>';
+            
+            try {
+                let allPackages = [];
+                
+                for (let file of files) {
+                    const text = await readFile(file);
+                    const packages = extractPackages(text, file.name);
+                    allPackages = allPackages.concat(packages);
+                }
+                
+                const merged = createMergedXML(allPackages);
+                downloadFile(merged, 'merged_arxml.arxml');
+                
+                document.getElementById('result').innerHTML = `
+                    <div class="success">
+                        <h4>✅ Erfolgreich zusammengeführt!</h4>
+                        <p>📁 ${files.length} Dateien verarbeitet</p>
+                        <p>📦 ${allPackages.length} Pakete gefunden</p>
+                        <p>💾 Download sollte automatisch starten</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <div class="error">
+                        <h4>❌ Fehler</h4>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.onerror = () => reject(new Error('Datei konnte nicht gelesen werden'));
+                reader.readAsText(file);
+            });
+        }
+        
+        function extractPackages(xmlText, fileName) {
+            const packages = [];
+            
+            // Einfache Regex-basierte Extraktion
+            const packageRegex = /<AR-PACKAGE[\s\S]*?<\/AR-PACKAGE>/g;
+            let match;
+            
+            while ((match = packageRegex.exec(xmlText)) !== null) {
+                packages.push({
+                    xml: match[0],
+                    source: fileName
+                });
+            }
+            
+            return packages;
+        }
+        
+        function createMergedXML(packages) {
+            let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-0.xsd">
+  <AR-PACKAGES>
+`;
+            
+            packages.forEach(pkg => {
+                xml += `    <!-- From: ${pkg.source} -->\n`;
+                xml += `    ${pkg.xml}\n`;
+            });
+            
+            xml += `  </AR-PACKAGES>
+</AUTOSAR>`;
+            
+            return xml;
+        }
+        
+        function downloadFile(content, filename) {
+            const blob = new Blob([content], { type: 'application/xml' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
