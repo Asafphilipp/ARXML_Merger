@@ -54,6 +54,188 @@ python web_interface.py --port 8000
 ```
 Dann öffnen Sie `http://localhost:8000` in Ihrem Browser.
 
+## 🎯 Schritt-für-Schritt Anleitung für Einsteiger
+
+### 📥 **Schritt 1: Installation (Einmalig)**
+
+#### **Option A: Automatische Installation (Empfohlen)**
+```bash
+# 1. Repository herunterladen
+git clone https://github.com/Asafphilipp/ARXML_Merger.git
+cd ARXML_Merger
+
+# 2. Automatische Installation starten
+python install.py
+```
+Das Installations-Skript prüft automatisch alle Voraussetzungen und installiert alles Notwendige.
+
+#### **Option B: Manuelle Installation**
+```bash
+# 1. Repository herunterladen
+git clone https://github.com/Asafphilipp/ARXML_Merger.git
+cd ARXML_Merger
+
+# 2. Python-Pakete installieren
+pip install -r requirements.txt
+
+# 3. Konfiguration erstellen
+python main.py config --create
+
+# 4. Installation testen
+python test_merger.py
+```
+
+### 🚀 **Schritt 2: Erste Verwendung**
+
+#### **🌐 Web-Interface (Einfachste Methode)**
+```bash
+# 1. Web-Server starten
+python run_web_server.py
+
+# 2. Browser öffnen und zu folgender Adresse gehen:
+#    http://localhost:8000
+
+# 3. ARXML-Dateien per Drag & Drop hochladen
+# 4. Einstellungen wählen (oder Standard beibehalten)
+# 5. "Zusammenführen" klicken
+# 6. Ergebnis herunterladen
+```
+
+#### **💻 Command-Line (Für Fortgeschrittene)**
+```bash
+# Einfachster Befehl - 2 Dateien zusammenführen:
+python main.py merge meine_ausgabe.arxml datei1.arxml datei2.arxml
+
+# Mit mehr Optionen:
+python main.py merge --strategy latest_wins --reports \
+    ausgabe.arxml eingabe1.arxml eingabe2.arxml eingabe3.arxml
+```
+
+### 📁 **Schritt 3: Ihre ARXML-Dateien vorbereiten**
+
+1. **Sammeln Sie alle ARXML-Dateien**, die Sie zusammenführen möchten
+2. **Legen Sie sie in einen Ordner** (z.B. `meine_arxml_dateien/`)
+3. **Stellen Sie sicher**, dass die Dateien gültige ARXML-Dateien sind
+
+### 🎮 **Schritt 4: Praktische Beispiele**
+
+#### **Beispiel 1: Zwei Dateien zusammenführen (Web-Interface)**
+```
+1. python run_web_server.py
+2. Browser öffnen: http://localhost:8000
+3. Dateien hochladen: ECU1.arxml und ECU2.arxml
+4. "Zusammenführen" klicken
+5. merged.arxml herunterladen
+```
+
+#### **Beispiel 2: Mehrere Dateien mit Berichten (Command-Line)**
+```bash
+python main.py merge --reports --backup \
+    projekt_merged.arxml \
+    ecu1.arxml ecu2.arxml ecu3.arxml signals.arxml
+```
+**Was passiert:**
+- Alle 4 Dateien werden zusammengeführt
+- Backups der Originaldateien werden erstellt
+- Detaillierte Berichte werden im `reports/` Ordner erstellt
+- Ergebnis wird als `projekt_merged.arxml` gespeichert
+
+#### **Beispiel 3: Nur Validierung (ohne Merge)**
+```bash
+python main.py validate meine_datei.arxml
+```
+
+### 🔧 **Schritt 5: Einstellungen anpassen (Optional)**
+
+#### **Konfigurationsdatei bearbeiten:**
+```bash
+# Konfiguration erstellen (falls noch nicht vorhanden)
+python main.py config --create
+
+# Datei bearbeiten mit einem Text-Editor
+notepad arxml_merger_config.json    # Windows
+nano arxml_merger_config.json       # Linux/Mac
+```
+
+#### **Wichtige Einstellungen:**
+- `"strategy": "conservative"` - Wie Konflikte gelöst werden
+- `"generate_reports": true` - Ob Berichte erstellt werden sollen
+- `"backup_originals": true` - Ob Backups erstellt werden sollen
+
+### 📊 **Schritt 6: Ergebnisse verstehen**
+
+#### **Nach dem Merge erhalten Sie:**
+1. **Merged ARXML-Datei** - Das Hauptergebnis
+2. **HTML-Bericht** - Übersicht über den Merge-Vorgang
+3. **Signal-Inventar (CSV)** - Liste aller Signale
+4. **Konflikt-Bericht** - Details zu aufgelösten Konflikten
+
+#### **Typische Ausgabe:**
+```
+✅ Merge erfolgreich abgeschlossen: projekt_merged.arxml
+⚡ Verarbeitungszeit: 2.34s
+📡 Erhaltene Signale: 1,247
+🔧 Aufgelöste Konflikte: 23
+📊 Berichte generiert in: reports/
+```
+
+### 🆘 **Schritt 7: Hilfe bei Problemen**
+
+#### **Häufige Probleme und Lösungen:**
+
+**Problem: "Datei nicht gefunden"**
+```bash
+# Lösung: Vollständigen Pfad angeben
+python main.py merge ausgabe.arxml C:\Pfad\zu\datei1.arxml C:\Pfad\zu\datei2.arxml
+```
+
+**Problem: "Permission denied"**
+```bash
+# Lösung: Anderen Port verwenden
+python run_web_server.py --port 8080
+```
+
+**Problem: "Memory Error"**
+```bash
+# Lösung: Niedrigere Validierungsstufe verwenden
+python main.py merge --validation basic ausgabe.arxml eingabe*.arxml
+```
+
+#### **Hilfe anzeigen:**
+```bash
+python main.py --help              # Allgemeine Hilfe
+python main.py merge --help        # Hilfe für Merge-Kommando
+python main.py validate --help     # Hilfe für Validierung
+```
+
+### 🎯 **Schritt 8: Erweiterte Nutzung**
+
+#### **Für regelmäßige Nutzung:**
+```bash
+# Batch-Datei erstellen (Windows)
+echo python main.py merge --reports ausgabe.arxml eingabe*.arxml > merge_script.bat
+
+# Shell-Skript erstellen (Linux/Mac)
+echo "python main.py merge --reports ausgabe.arxml eingabe*.arxml" > merge_script.sh
+chmod +x merge_script.sh
+```
+
+#### **Automatisierung:**
+```bash
+# Alle ARXML-Dateien in einem Ordner mergen
+python main.py merge --reports projekt_komplett.arxml ordner/*.arxml
+```
+
+### ✅ **Erfolgskontrolle**
+
+**Sie wissen, dass alles funktioniert, wenn:**
+1. ✅ Das Web-Interface unter http://localhost:8000 erreichbar ist
+2. ✅ Der Test-Befehl `python test_merger.py` erfolgreich läuft
+3. ✅ Sie eine merged ARXML-Datei erhalten haben
+4. ✅ Die Berichte im `reports/` Ordner erstellt wurden
+
+---
+
 ## 📖 Detaillierte Verwendung
 
 ### Command-Line-Optionen
