@@ -21,21 +21,32 @@ Ein robuster, professioneller ARXML-Merger für AUTOSAR-Dateien mit vollständig
 
 ## 🚀 Schnellstart - 3 Einfache Wege
 
-### 🌟 **Option 1: Einfachster Download (Empfohlen für Einsteiger)**
-**Keine Git-Kenntnisse erforderlich!**
+### 🎯 **Einfache Downloads (Keine Git-Kenntnisse erforderlich!)**
 
-1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest/download/ARXML_Merger_Download.zip)
-2. **Entpacken** Sie die ZIP-Datei
-3. **Doppelklick** auf `START.bat`
-4. **Fertig!** Browser öffnet sich automatisch
+**👉 [Zur Download-Seite](https://asafphilipp.github.io/ARXML_Merger/download.html) 👈**
 
-### 🌐 **Option 2: Offline im Browser (Keine Installation)**
+### 🌟 **Option 1: Sofort im Browser (Empfohlen für Einsteiger)**
 **Funktioniert sofort ohne Python!**
 
-1. **Download**: [arxml_merger_standalone.html](https://github.com/Asafphilipp/ARXML_Merger/releases/latest/download/arxml_merger_standalone.html)
+1. **Download**: [arxml_merger_standalone.html](https://raw.githubusercontent.com/Asafphilipp/ARXML_Merger/main/arxml_merger_standalone.html) (Rechtsklick → "Speichern unter")
 2. **Doppelklick** auf die HTML-Datei
 3. **Drag & Drop** Ihre ARXML-Dateien
-4. **Merge** direkt im Browser
+4. **Merge** direkt im Browser - **Fertig!**
+
+### 📦 **Option 2: Komplettes Paket mit Installer**
+**Vollständige Funktionalität mit automatischem Setup**
+
+1. **Download**: [Komplettes ZIP](https://github.com/Asafphilipp/ARXML_Merger/archive/refs/heads/main.zip)
+2. **Entpacken** Sie die ZIP-Datei
+3. **Doppelklick** auf `START.bat` (Windows) oder `run_web_server.py`
+4. **Browser öffnet sich automatisch** - **Fertig!**
+
+### 🏷️ **Option 3: GitHub Releases (Stabile Versionen)**
+**Für offizielle Releases mit vorgefertigten Paketen**
+
+1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Klicken Sie auf "Assets"** um Downloads zu sehen
+3. **Wählen Sie** `ARXML_Merger_Download.zip` oder `arxml_merger_standalone.html`
 
 ### 💻 **Option 3: Git-Installation (Für Entwickler)**
 ```bash
@@ -75,21 +86,24 @@ Dann öffnen Sie `http://localhost:8000` in Ihrem Browser.
 ### 📥 **Schritt 1: Download & Installation**
 
 #### **🌟 Option A: Einfachster Weg (Kein Git erforderlich)**
-1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
-2. **Entpacken** Sie die ZIP-Datei in einen Ordner Ihrer Wahl
-3. **Doppelklick** auf `START.bat` (Windows) oder `run_web_server.py`
-4. **Fertig!** Das war's schon!
+1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Download**: `ARXML_Merger_Download.zip` (unter "Assets" klicken)
+3. **Entpacken** Sie die ZIP-Datei in einen Ordner Ihrer Wahl
+4. **Doppelklick** auf `START.bat` (Windows) oder `run_web_server.py`
+5. **Fertig!** Das war's schon!
 
 #### **🌐 Option B: Sofort im Browser (Keine Installation)**
-1. **Download**: [arxml_merger_standalone.html](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
-2. **Doppelklick** auf die HTML-Datei
-3. **Sofort einsatzbereit** - funktioniert offline!
+1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Download**: `arxml_merger_standalone.html` (unter "Assets")
+3. **Doppelklick** auf die HTML-Datei
+4. **Sofort einsatzbereit** - funktioniert offline!
 
 #### **💾 Option C: Mit Desktop-Verknüpfung**
-1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
-2. **Entpacken** und **Doppelklick** auf `INSTALL.bat`
-3. **Desktop-Verknüpfung** wird automatisch erstellt
-4. **Zukünftig**: Einfach Doppelklick auf Desktop-Symbol
+1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Download**: `ARXML_Merger_Download.zip` (unter "Assets")
+3. **Entpacken** und **Doppelklick** auf `INSTALL.bat`
+4. **Desktop-Verknüpfung** wird automatisch erstellt
+5. **Zukünftig**: Einfach Doppelklick auf Desktop-Symbol
 
 #### **🔧 Option D: Git-Installation (Für Entwickler)**
 ```bash
