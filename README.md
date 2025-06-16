@@ -7,15 +7,17 @@ Dieses Repository enthält ein einfaches Python-Skript, das mehrere AUTOSAR-ARXM
 
 ## Verwendung
 ```bash
-python3 arxml_merger.py [--strategy latest-wins] output.arxml input1.arxml input2.arxml [...]
+python3 arxml_merger.py [--encoding UTF-8] [--strategy latest-wins] \
+    output.arxml input1.arxml input2.arxml [...]
 ```
 Das Skript liest alle angegebenen Eingabedateien, überspringt ungültige
 Dateien und schreibt das Ergebnis nach `output.arxml`.
 
 ## Aktueller Funktionsumfang
-* Zusammenführung der `AR-PACKAGES`-Sektionen aus mehreren Dateien
-* Warnungen bei ungültig formatierten Eingabedateien
-* Wählbare Konfliktstrategie (`conservative` oder `latest-wins`)
+* Rekursives Zusammenführen der `AR-PACKAGES`-Hierarchie
+* Warnungen bei ungültig formatierten Eingabedateien oder falschen Root-Elementen
+* Wählbare Konfliktstrategie (`conservative`, `latest-wins`, `interactive`)
+* Optionale Angabe des Eingabe-Encodings
 
 ## Geplante Erweiterungen (Auszug)
 * Vollständige Signal-Preservation und Referenz-Integrität

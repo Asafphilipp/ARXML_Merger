@@ -5,12 +5,21 @@ import argparse
 import sys
 
 
-def parse_arxml(path: str) -> ET.ElementTree | None:
+def parse_arxml(path: str, encoding: str | None = None) -> ET.ElementTree | None:
     """Parse an ARXML file and return ElementTree or None on failure."""
     try:
-        tree = ET.parse(path)
-    except ET.ParseError as exc:
+        if encoding:
+            with open(path, "r", encoding=encoding) as fh:
+                tree = ET.parse(fh)
+        else:
+            tree = ET.parse(path)
+    except (ET.ParseError, UnicodeDecodeError) as exc:
         print(f"Failed to parse {path}: {exc}", file=sys.stderr)
+        return None
+
+    root = tree.getroot()
+    if _ns(root.tag) != "AUTOSAR":
+        print(f"File {path} does not contain an AUTOSAR root element", file=sys.stderr)
         return None
     return tree
 
@@ -22,19 +31,43 @@ def _ns(tag: str) -> str:
     return tag
 
 
-def merge_packages(base_pkg: ET.Element, new_pkg: ET.Element, strategy: str) -> None:
-    """Merge two AR-PACKAGES elements in-place."""
-    base_map = {
-        pkg.findtext("SHORT-NAME"): pkg
-        for pkg in base_pkg.findall("AR-PACKAGE")
-    }
+def merge_packages(base_pkg: ET.Element, new_pkg: ET.Element, strategy: str, ns: str) -> None:
+    """Merge two AR-PACKAGES elements in-place recursively."""
+    tag_pkg = f"{{{ns}}}AR-PACKAGE" if ns else "AR-PACKAGE"
+    tag_pkgs = f"{{{ns}}}AR-PACKAGES" if ns else "AR-PACKAGES"
+    tag_name = f"{{{ns}}}SHORT-NAME" if ns else "SHORT-NAME"
 
-    for pkg in new_pkg.findall("AR-PACKAGE"):
-        name = pkg.findtext("SHORT-NAME")
+    base_map = {pkg.findtext(tag_name): pkg for pkg in base_pkg.findall(tag_pkg)}
+
+    for pkg in new_pkg.findall(tag_pkg):
+        name = pkg.findtext(tag_name)
         if name in base_map:
-            if strategy == "latest-wins":
+            if strategy == "interactive":
+                choice = input(
+                    f"Package '{name}' exists. Keep (o)ld, use (n)ew? [o/n]: "
+                ).strip().lower()
+                if choice.startswith("n"):
+                    base_pkg.remove(base_map[name])
+                    base_pkg.append(pkg)
+                else:
+                    base = base_map[name]
+                    base_child = base.find(tag_pkgs)
+                    new_child = pkg.find(tag_pkgs)
+                    if base_child is not None and new_child is not None:
+                        merge_packages(base_child, new_child, strategy, ns)
+                    elif base_child is None and new_child is not None:
+                        base.append(new_child)
+            elif strategy == "latest-wins":
                 base_pkg.remove(base_map[name])
                 base_pkg.append(pkg)
+            else:  # conservative or rule-based placeholder
+                base = base_map[name]
+                base_child = base.find(tag_pkgs)
+                new_child = pkg.find(tag_pkgs)
+                if base_child is not None and new_child is not None:
+                    merge_packages(base_child, new_child, strategy, ns)
+                elif base_child is None and new_child is not None:
+                    base.append(new_child)
         else:
             base_pkg.append(pkg)
 
@@ -61,7 +94,7 @@ def merge_trees(trees: list[ET.ElementTree], strategy: str) -> ET.ElementTree:
             base_root.append(pkgs)
             base_pkgs = pkgs
         else:
-            merge_packages(base_pkgs, pkgs, strategy)
+            merge_packages(base_pkgs, pkgs, strategy, ns)
 
     return base_tree
 
@@ -72,8 +105,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("output", help="Path to output ARXML file")
     parser.add_argument("inputs", nargs="+", help="Input ARXML files")
     parser.add_argument(
+        "--encoding",
+        help="Override input encoding (otherwise determined from XML header)",
+    )
+    parser.add_argument(
         "--strategy",
-        choices=["conservative", "latest-wins"],
+        choices=["conservative", "latest-wins", "interactive", "rule-based"],
         default="conservative",
         help="Conflict resolution strategy (default: conservative)",
     )
@@ -81,7 +118,7 @@ def main(argv: list[str] | None = None) -> int:
 
     trees: list[ET.ElementTree] = []
     for path in args.inputs:
-        tree = parse_arxml(path)
+        tree = parse_arxml(path, args.encoding)
         if tree is not None:
             trees.append(tree)
         else:
