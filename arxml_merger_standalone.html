@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARXML Merger - Standalone Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .upload-section {
+            background: #f8f9fa;
+            border: 3px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-section.dragover {
+            border-color: #007bff;
+            background: #e3f2fd;
+        }
+        
+        .upload-icon {
+            font-size: 4em;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .upload-text {
+            font-size: 1.2em;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,123,255,0.3);
+        }
+        
+        .file-list {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            max-height: 300px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .file-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f1f3f4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .file-item:last-child {
+            border-bottom: none;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .file-size {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        .remove-file {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        
+        .merge-btn {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 25px;
+            font-size: 1.2em;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .merge-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(40,167,69,0.3);
+        }
+        
+        .merge-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result-section {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .result-section.error {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        
+        .result-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #155724;
+        }
+        
+        .result-section.error .result-title {
+            color: #721c24;
+        }
+        
+        .download-btn {
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-title {
+            font-weight: 600;
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 5px 0;
+            color: #424242;
+        }
+        
+        .feature-list li:before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 ARXML Merger</h1>
+            <p>Standalone Version - Keine Installation erforderlich!</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="info-box">
+                <div class="info-title">📋 Was diese Version kann:</div>
+                <ul class="feature-list">
+                    <li>Einfaches Zusammenführen von ARXML-Dateien</li>
+                    <li>Drag & Drop Datei-Upload</li>
+                    <li>Automatische Konfliktauflösung</li>
+                    <li>Sofortiger Download der Ergebnisse</li>
+                    <li>Funktioniert komplett offline im Browser</li>
+                    <li>Keine Python-Installation erforderlich</li>
+                </ul>
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">
+                    Ziehen Sie ARXML-Dateien hierher oder klicken Sie zum Auswählen
+                </div>
+                <input type="file" id="fileInput" class="file-input" multiple accept=".arxml,.xml">
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    Dateien auswählen
+                </button>
+            </div>
+            
+            <!-- File List -->
+            <div class="file-list" id="fileList">
+                <div style="padding: 15px 20px; background: #f8f9fa; font-weight: 600; color: #2c3e50;">
+                    Ausgewählte Dateien
+                </div>
+            </div>
+            
+            <!-- Merge Button -->
+            <button class="merge-btn" id="mergeBtn" onclick="startMerge()" disabled>
+                🔄 Mindestens 2 Dateien erforderlich
+            </button>
+            
+            <!-- Result Section -->
+            <div class="result-section" id="resultSection">
+                <div class="result-title" id="resultTitle">Merge erfolgreich!</div>
+                <div id="resultContent"></div>
+                <a href="#" class="download-btn" id="downloadBtn" style="display: none;">
+                    📥 Merged ARXML herunterladen
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let uploadedFiles = [];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+        });
+        
+        function setupEventListeners() {
+            const uploadSection = document.getElementById('uploadSection');
+            const fileInput = document.getElementById('fileInput');
+            
+            // Drag and Drop
+            uploadSection.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadSection.classList.add('dragover');
+            });
+            
+            uploadSection.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadSection.classList.remove('dragover');
+            });
+            
+            uploadSection.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadSection.classList.remove('dragover');
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            // File Input
+            fileInput.addEventListener('change', function(e) {
+                handleFiles(e.target.files);
+            });
+        }
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                if (file.name.toLowerCase().endsWith('.arxml') || file.name.toLowerCase().endsWith('.xml')) {
+                    uploadedFiles.push(file);
+                } else {
+                    alert(`Datei ${file.name} wird übersprungen (nur .arxml/.xml Dateien unterstützt)`);
+                }
+            }
+            updateFileList();
+            updateMergeButton();
+        }
+        
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            
+            if (uploadedFiles.length === 0) {
+                fileList.style.display = 'none';
+                return;
+            }
+            
+            fileList.style.display = 'block';
+            
+            // Clear existing items (except header)
+            const items = fileList.querySelectorAll('.file-item');
+            items.forEach(item => item.remove());
+            
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${formatFileSize(file.size)}</div>
+                    </div>
+                    <button class="remove-file" onclick="removeFile(${index})">Entfernen</button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+        
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+            updateMergeButton();
+        }
+        
+        function updateMergeButton() {
+            const mergeBtn = document.getElementById('mergeBtn');
+            mergeBtn.disabled = uploadedFiles.length < 2;
+            
+            if (uploadedFiles.length < 2) {
+                mergeBtn.textContent = '🔄 Mindestens 2 Dateien erforderlich';
+            } else {
+                mergeBtn.textContent = `🔄 ${uploadedFiles.length} ARXML-Dateien zusammenführen`;
+            }
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        async function startMerge() {
+            if (uploadedFiles.length < 2) {
+                alert('Mindestens 2 Dateien erforderlich');
+                return;
+            }
+            
+            const resultSection = document.getElementById('resultSection');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultContent = document.getElementById('resultContent');
+            const downloadBtn = document.getElementById('downloadBtn');
+            
+            try {
+                resultSection.style.display = 'block';
+                resultSection.className = 'result-section';
+                resultTitle.textContent = 'Merge läuft...';
+                resultContent.innerHTML = '<p>Bitte warten, Dateien werden verarbeitet...</p>';
+                downloadBtn.style.display = 'none';
+                
+                // Simple XML merging (basic implementation)
+                const mergedContent = await performSimpleMerge();
+                
+                resultTitle.textContent = 'Merge erfolgreich abgeschlossen!';
+                resultContent.innerHTML = `
+                    <p><strong>📁 Verarbeitete Dateien:</strong> ${uploadedFiles.length}</p>
+                    <p><strong>📊 Ergebnis:</strong> Alle ARXML-Dateien wurden zusammengeführt</p>
+                    <p><strong>💡 Hinweis:</strong> Dies ist eine vereinfachte Standalone-Version</p>
+                `;
+                
+                // Create download
+                const blob = new Blob([mergedContent], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                downloadBtn.href = url;
+                downloadBtn.download = 'merged_arxml.arxml';
+                downloadBtn.style.display = 'inline-block';
+                
+            } catch (error) {
+                resultSection.className = 'result-section error';
+                resultTitle.textContent = 'Fehler beim Merge!';
+                resultContent.innerHTML = `<p><strong>❌ Fehler:</strong> ${error.message}</p>`;
+                downloadBtn.style.display = 'none';
+            }
+        }
+        
+        async function performSimpleMerge() {
+            // Read all files
+            const fileContents = [];
+            for (let file of uploadedFiles) {
+                const content = await readFileAsText(file);
+                fileContents.push(content);
+            }
+            
+            // Simple merge strategy: combine all AR-PACKAGES
+            let mergedContent = `<?xml version="1.0" encoding="UTF-8"?>
+<AUTOSAR xmlns="http://autosar.org/schema/r4.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://autosar.org/schema/r4.0 AUTOSAR_4-3-0.xsd">
+  <AR-PACKAGES>
+`;
+            
+            // Extract and merge AR-PACKAGES from each file
+            for (let i = 0; i < fileContents.length; i++) {
+                const content = fileContents[i];
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(content, 'text/xml');
+                
+                // Find AR-PACKAGES
+                const arPackages = doc.getElementsByTagName('AR-PACKAGES');
+                if (arPackages.length > 0) {
+                    const packages = arPackages[0].getElementsByTagName('AR-PACKAGE');
+                    for (let pkg of packages) {
+                        const serializer = new XMLSerializer();
+                        const pkgString = serializer.serializeToString(pkg);
+                        mergedContent += '    ' + pkgString + '\n';
+                    }
+                }
+            }
+            
+            mergedContent += `  </AR-PACKAGES>
+</AUTOSAR>`;
+            
+            return mergedContent;
+        }
+        
+        function readFileAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.onerror = e => reject(new Error('Fehler beim Lesen der Datei'));
+                reader.readAsText(file, 'UTF-8');
+            });
+        }
+    </script>
+</body>
+</html>

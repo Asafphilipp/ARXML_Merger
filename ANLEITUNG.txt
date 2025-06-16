@@ -1,0 +1,73 @@
+# 🚀 ARXML Merger - Benutzeranleitung
+
+## 📥 Was ist in diesem Paket?
+
+- **START.bat** - Einfacher Starter (empfohlen)
+- **INSTALL.bat** - Einmalige Installation mit Desktop-Verknüpfung
+- **arxml_merger_standalone.html** - Offline-Version für Browser
+- **run_web_server.py** - Hauptprogramm
+- **Alle Python-Dateien** - Vollständige Funktionalität
+
+## 🎯 Schnellstart (3 Optionen)
+
+### Option 1: Einfachster Weg 🌟
+1. **Doppelklick auf `START.bat`**
+2. Warten bis Browser sich öffnet
+3. ARXML-Dateien hochladen
+4. "Zusammenführen" klicken
+5. Ergebnis herunterladen
+
+### Option 2: Offline im Browser
+1. **Doppelklick auf `arxml_merger_standalone.html`**
+2. Funktioniert ohne Python
+3. Einfache Merge-Funktionalität
+4. Komplett offline
+
+### Option 3: Mit Installation
+1. **Doppelklick auf `INSTALL.bat`**
+2. Folgen Sie den Anweisungen
+3. Desktop-Verknüpfung wird erstellt
+4. Zukünftig: Doppelklick auf Desktop-Symbol
+
+## 🔧 Voraussetzungen
+
+### Für START.bat und INSTALL.bat:
+- Windows-Computer
+- Python 3.8+ (wird automatisch geprüft)
+- Internetverbindung (für erste Nutzung)
+
+### Für Standalone-HTML:
+- Nur ein moderner Browser
+- Keine weiteren Voraussetzungen
+
+## 💡 Tipps
+
+- **Erste Nutzung**: Verwenden Sie START.bat
+- **Regelmäßige Nutzung**: Installieren Sie mit INSTALL.bat
+- **Ohne Python**: Verwenden Sie die HTML-Version
+- **Probleme**: Versuchen Sie die HTML-Version als Fallback
+
+## 🆘 Häufige Probleme
+
+**"Python ist nicht installiert"**
+→ Laden Sie Python von https://python.org herunter
+→ Oder verwenden Sie die HTML-Version
+
+**"Fehler bei der Installation"**
+→ Führen Sie als Administrator aus
+→ Oder verwenden Sie die HTML-Version
+
+**"Browser öffnet sich nicht"**
+→ Öffnen Sie manuell: http://localhost:8000
+→ Oder verwenden Sie die HTML-Version
+
+## 📞 Support
+
+Bei Problemen:
+1. Versuchen Sie die HTML-Version
+2. Prüfen Sie die Python-Installation
+3. Führen Sie als Administrator aus
+4. Kontaktieren Sie den Support
+
+---
+**Viel Erfolg mit ARXML Merger!** 🎉

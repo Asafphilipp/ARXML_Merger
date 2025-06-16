@@ -19,9 +19,25 @@ Ein robuster, professioneller ARXML-Merger für AUTOSAR-Dateien mit vollständig
 - **Konfigurierbare Strategien**: Conservative, Latest-Wins, Interactive, Rule-Based
 - **Backup-System**: Automatische Sicherung der Originaldateien
 
-## 🚀 Schnellstart
+## 🚀 Schnellstart - 3 Einfache Wege
 
-### Installation
+### 🌟 **Option 1: Einfachster Download (Empfohlen für Einsteiger)**
+**Keine Git-Kenntnisse erforderlich!**
+
+1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest/download/ARXML_Merger_Download.zip)
+2. **Entpacken** Sie die ZIP-Datei
+3. **Doppelklick** auf `START.bat`
+4. **Fertig!** Browser öffnet sich automatisch
+
+### 🌐 **Option 2: Offline im Browser (Keine Installation)**
+**Funktioniert sofort ohne Python!**
+
+1. **Download**: [arxml_merger_standalone.html](https://github.com/Asafphilipp/ARXML_Merger/releases/latest/download/arxml_merger_standalone.html)
+2. **Doppelklick** auf die HTML-Datei
+3. **Drag & Drop** Ihre ARXML-Dateien
+4. **Merge** direkt im Browser
+
+### 💻 **Option 3: Git-Installation (Für Entwickler)**
 ```bash
 # Repository klonen
 git clone https://github.com/Asafphilipp/ARXML_Merger.git
@@ -56,9 +72,26 @@ Dann öffnen Sie `http://localhost:8000` in Ihrem Browser.
 
 ## 🎯 Schritt-für-Schritt Anleitung für Einsteiger
 
-### 📥 **Schritt 1: Installation (Einmalig)**
+### 📥 **Schritt 1: Download & Installation**
 
-#### **Option A: Automatische Installation (Empfohlen)**
+#### **🌟 Option A: Einfachster Weg (Kein Git erforderlich)**
+1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Entpacken** Sie die ZIP-Datei in einen Ordner Ihrer Wahl
+3. **Doppelklick** auf `START.bat` (Windows) oder `run_web_server.py`
+4. **Fertig!** Das war's schon!
+
+#### **🌐 Option B: Sofort im Browser (Keine Installation)**
+1. **Download**: [arxml_merger_standalone.html](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Doppelklick** auf die HTML-Datei
+3. **Sofort einsatzbereit** - funktioniert offline!
+
+#### **💾 Option C: Mit Desktop-Verknüpfung**
+1. **Download**: [ARXML_Merger_Download.zip](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
+2. **Entpacken** und **Doppelklick** auf `INSTALL.bat`
+3. **Desktop-Verknüpfung** wird automatisch erstellt
+4. **Zukünftig**: Einfach Doppelklick auf Desktop-Symbol
+
+#### **🔧 Option D: Git-Installation (Für Entwickler)**
 ```bash
 # 1. Repository herunterladen
 git clone https://github.com/Asafphilipp/ARXML_Merger.git
@@ -66,23 +99,6 @@ cd ARXML_Merger
 
 # 2. Automatische Installation starten
 python install.py
-```
-Das Installations-Skript prüft automatisch alle Voraussetzungen und installiert alles Notwendige.
-
-#### **Option B: Manuelle Installation**
-```bash
-# 1. Repository herunterladen
-git clone https://github.com/Asafphilipp/ARXML_Merger.git
-cd ARXML_Merger
-
-# 2. Python-Pakete installieren
-pip install -r requirements.txt
-
-# 3. Konfiguration erstellen
-python main.py config --create
-
-# 4. Installation testen
-python test_merger.py
 ```
 
 ### 🚀 **Schritt 2: Erste Verwendung**
