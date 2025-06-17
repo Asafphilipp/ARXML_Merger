@@ -19,13 +19,30 @@ Ein robuster, professioneller ARXML-Merger für AUTOSAR-Dateien mit vollständig
 - **Konfigurierbare Strategien**: Conservative, Latest-Wins, Interactive, Rule-Based
 - **Backup-System**: Automatische Sicherung der Originaldateien
 
-## 🚀 Schnellstart - 3 Einfache Wege
+## 🚀 Schnellstart - ENDLICH EINE LÖSUNG DIE FUNKTIONIERT!
 
-### 🎯 **Einfache Downloads (Keine Git-Kenntnisse erforderlich!)**
+### 🎯 **NEUE DESKTOP-ANWENDUNG (Empfohlen) - KEINE BROWSER-PROBLEME!**
 
-**👉 [Zur Download-Seite](https://asafphilipp.github.io/ARXML_Merger/download.html) 👈**
+**✅ FUNKTIONIERT GARANTIERT - KEINE HTML-VERWIRRUNG MEHR!**
 
-> ⚠️ **WICHTIG für Kollegen**: HTML-Dateien müssen **lokal gespeichert** werden! Nicht direkt von GitHub öffnen!
+#### **🖥️ Option 1: Desktop-Anwendung (.exe) - SOFORT EINSATZBEREIT**
+```bash
+# 1. Doppelklick auf BUILD_FINAL.bat
+# 2. ZIP entpacken: ARXML_Merger_FINAL.zip
+# 3. Doppelklick auf ARXML_Merger.exe
+# 4. Mehrere Dateien laden und zusammenführen
+# ✅ FERTIG!
+```
+
+**Vorteile:**
+- ✅ **Funktioniert sofort** - keine Browser-Probleme
+- ✅ **Mehrere Dateien laden** - endlich möglich!
+- ✅ **Einfache Bedienung** - Konsolen-Menü
+- ✅ **Drag & Drop** - Dateien einfach reinziehen
+- ✅ **Offline** - keine Internet-Verbindung nötig
+
+#### **🌐 Option 2: HTML-Versionen (Falls gewünscht)**
+> ⚠️ **WICHTIG**: HTML-Dateien müssen **lokal gespeichert** werden! Nicht direkt von GitHub öffnen!
 >
 > 📖 **Probleme?** → [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | [BENUTZERANLEITUNG.md](BENUTZERANLEITUNG.md)
 
