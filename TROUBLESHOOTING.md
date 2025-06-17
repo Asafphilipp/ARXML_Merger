@@ -1,5 +1,28 @@
 # 🔧 ARXML Merger - Troubleshooting
 
+## 🛡️ **"Der Computer wurde durch Windows geschützt"**
+
+### ❌ **Problem:**
+Beim Ausführen von `ARXML_Merger.exe` erscheint eine Windows-Schutzwarnung.
+
+### ✅ **Sofort-Lösung:**
+1. **Klicken Sie auf "Weitere Informationen"**
+2. **Klicken Sie auf "Trotzdem ausführen"**
+3. ✅ Das Programm startet normal
+
+### 🔄 **Alternative (KEINE Warnung):**
+- **Doppelklick auf `START_PYTHON.bat`**
+- Identische Funktionalität, keine Warnung
+
+### 💡 **Warum passiert das?**
+- Windows Defender schützt vor unbekannten .exe-Dateien
+- Die Datei ist nicht digital signiert (kostet Geld)
+- **Das ist normal und harmlos!**
+
+📖 **Ausführliche Anleitung**: [WINDOWS_SCHUTZ_LÖSUNG.md](WINDOWS_SCHUTZ_LÖSUNG.md)
+
+---
+
 ## 🚨 **"Es funktioniert nicht in der main Branch!"**
 
 ### ❌ **Häufigster Fehler:**

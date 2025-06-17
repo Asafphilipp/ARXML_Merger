@@ -94,14 +94,21 @@ def create_complete_package():
         if Path(file).exists():
             shutil.copy2(file, python_dir / file)
     
+    # START_PYTHON.bat kopieren
+    if Path("START_PYTHON.bat").exists():
+        shutil.copy2("START_PYTHON.bat", package_dir / "START_PYTHON.bat")
+        print("✅ START_PYTHON.bat kopiert")
+
     # Dokumentation kopieren
     docs = [
         "README.md",
         "BENUTZERANLEITUNG.md",
         "TROUBLESHOOTING.md",
-        "ANLEITUNG.txt"
+        "ANLEITUNG.txt",
+        "WINDOWS_SCHUTZ_LÖSUNG.md",
+        "WINDOWS_WARNUNG_LÖSUNG.txt"
     ]
-    
+
     for doc in docs:
         if Path(doc).exists():
             shutil.copy2(doc, package_dir / doc)
@@ -157,19 +164,29 @@ def create_complete_package():
 
 ═══════════════════════════════════════════════════════════════
 
-🎯 SCHNELLSTART:
+🎯 SCHNELLSTART (2 OPTIONEN):
 
-1. 📂 Doppelklick auf "ARXML_Merger.exe"
+🔥 OPTION 1 - PYTHON (EMPFOHLEN):
+1. 📂 Doppelklick auf "START_PYTHON.bat"
 2. 📁 Wählen Sie "1" um Dateien hinzuzufügen
 3. 🔄 Wählen Sie "4" um zusammenzuführen
-4. ✅ Fertig!
+4. ✅ Fertig! (KEINE Windows-Warnung!)
+
+🔧 OPTION 2 - EXE:
+1. 📂 Doppelklick auf "ARXML_Merger.exe"
+2. Bei Warnung: "Weitere Informationen" → "Trotzdem ausführen"
+3. 📁 Wählen Sie "1" um Dateien hinzuzufügen
+4. 🔄 Wählen Sie "4" um zusammenzuführen
+5. ✅ Fertig!
 
 ═══════════════════════════════════════════════════════════════
 
 📁 PAKET-INHALT:
 
-📄 ARXML_Merger.exe          - Hauptprogramm (SOFORT AUSFÜHRBAR!)
+📄 START_PYTHON.bat          - Python-Version (EMPFOHLEN - KEINE WARNUNG!)
+📄 ARXML_Merger.exe          - EXE-Version (Windows-Warnung möglich)
 📖 START_HIER.txt            - Diese Anleitung
+📖 WINDOWS_WARNUNG_LÖSUNG.txt - Hilfe bei Windows-Warnung
 📖 BENUTZERANLEITUNG.md      - Ausführliche Anleitung
 📖 TROUBLESHOOTING.md        - Bei Problemen
 📁 examples/                 - Beispiel-ARXML-Dateien zum Testen
@@ -193,7 +210,7 @@ def create_complete_package():
 🧪 TESTEN:
 
 1. Kopieren Sie die Beispiel-Dateien aus "examples/" in diesen Ordner
-2. Starten Sie ARXML_Merger.exe
+2. Starten Sie START_PYTHON.bat (oder ARXML_Merger.exe)
 3. Wählen Sie "5" für automatische Erkennung
 4. Wählen Sie "4" zum Zusammenführen
 5. Prüfen Sie die Ausgabedatei "merged_arxml.arxml"
@@ -211,8 +228,9 @@ def create_complete_package():
 
 🆘 PROBLEME?
 
-📖 Lesen Sie: TROUBLESHOOTING.md
-📖 Ausführlich: BENUTZERANLEITUNG.md
+🛡️ Windows-Warnung: WINDOWS_WARNUNG_LÖSUNG.txt
+📖 Allgemeine Probleme: TROUBLESHOOTING.md
+📖 Ausführliche Anleitung: BENUTZERANLEITUNG.md
 
 ═══════════════════════════════════════════════════════════════
 
