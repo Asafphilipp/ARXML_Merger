@@ -1,0 +1,27 @@
+🛡️ WINDOWS-SCHUTZWARNUNG - SCHNELLE LÖSUNG
+═══════════════════════════════════════════════════════════════
+
+❌ PROBLEM:
+"Der Computer wurde durch Windows geschützt" beim Starten der .exe
+
+✅ LÖSUNG 1 (SOFORT):
+1. Klicken Sie auf "Weitere Informationen"
+2. Klicken Sie auf "Trotzdem ausführen"
+3. Fertig! Das Programm startet normal.
+
+✅ LÖSUNG 2 (KEINE WARNUNG):
+1. Doppelklick auf "START_PYTHON.bat"
+2. Fertig! Startet ohne Warnung.
+
+💡 WARUM PASSIERT DAS?
+- Windows schützt vor unbekannten .exe-Dateien
+- Die Datei ist nicht digital signiert
+- Das ist NORMAL und HARMLOS!
+- Kein Virus, nur Sicherheitsvorsicht
+
+🎯 EMPFEHLUNG:
+Verwenden Sie START_PYTHON.bat - einfacher und ohne Warnung!
+
+═══════════════════════════════════════════════════════════════
+✅ BEIDE VARIANTEN SIND SICHER UND FUNKTIONIEREN IDENTISCH!
+═══════════════════════════════════════════════════════════════
