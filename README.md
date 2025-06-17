@@ -25,15 +25,22 @@ Ein robuster, professioneller ARXML-Merger für AUTOSAR-Dateien mit vollständig
 
 **👉 [Zur Download-Seite](https://asafphilipp.github.io/ARXML_Merger/download.html) 👈**
 
+> ⚠️ **WICHTIG für Kollegen**: HTML-Dateien müssen **lokal gespeichert** werden! Nicht direkt von GitHub öffnen!
+>
+> 📖 **Probleme?** → [TROUBLESHOOTING.md](TROUBLESHOOTING.md) | [BENUTZERANLEITUNG.md](BENUTZERANLEITUNG.md)
+
 ### 🌟 **Option 1: Sofort im Browser (Empfohlen für Einsteiger)**
 **Funktioniert sofort ohne Python!**
 
 1. **Download**: [arxml_merger_working.html](https://raw.githubusercontent.com/Asafphilipp/ARXML_Merger/main/arxml_merger_working.html) (Rechtsklick → "Speichern unter")
-2. **Doppelklick** auf die HTML-Datei
-3. **Dateien auswählen** und **"Zusammenführen"** klicken
-4. **Download startet automatisch** - **Fertig!**
+2. **WICHTIG**: Datei auf dem **lokalen Computer speichern** (nicht im Browser öffnen!)
+3. **Doppelklick** auf die **gespeicherte** HTML-Datei
+4. **Dateien auswählen** und **"Zusammenführen"** klicken
+5. **Download startet automatisch** - **Fertig!**
 
-> 💡 **Tipp**: Falls der Link nicht funktioniert, kopieren Sie den Link und fügen Sie ihn in die Adresszeile ein
+> ⚠️ **WICHTIGER HINWEIS**: Die HTML-Datei muss **lokal gespeichert** werden! Direktes Öffnen von GitHub funktioniert nicht wegen Browser-Sicherheitsbeschränkungen.
+
+> 💡 **Für Kollegen**: Rechtsklick auf den Link → "Ziel speichern unter" → Datei auf Desktop speichern → Doppelklick auf gespeicherte Datei
 
 ### 📦 **Option 2: Komplettes Paket mit Installer**
 **Vollständige Funktionalität mit automatischem Setup**
@@ -97,8 +104,11 @@ Dann öffnen Sie `http://localhost:8000` in Ihrem Browser.
 #### **🌐 Option B: Sofort im Browser (Keine Installation)**
 1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
 2. **Download**: `arxml_merger_standalone.html` (unter "Assets")
-3. **Doppelklick** auf die HTML-Datei
-4. **Sofort einsatzbereit** - funktioniert offline!
+3. **WICHTIG**: Datei **lokal speichern** (Rechtsklick → "Speichern unter")
+4. **Doppelklick** auf die **gespeicherte** HTML-Datei
+5. **Sofort einsatzbereit** - funktioniert offline!
+
+> ⚠️ **Häufiger Fehler**: Nicht direkt im Browser von GitHub öffnen - immer erst lokal speichern!
 
 #### **💾 Option C: Mit Desktop-Verknüpfung**
 1. **Gehen Sie zu**: [GitHub Releases](https://github.com/Asafphilipp/ARXML_Merger/releases/latest)
@@ -481,16 +491,42 @@ python main.py merge --reports large_output.arxml large_input*.arxml
 
 ## 🔧 Entwicklung und Erweiterung
 
-### Architektur-Übersicht
+### 📁 Repository-Struktur
 ```
-arxml_merger_engine.py    # Kern-Merge-Engine
-arxml_validator.py        # Validierung und Schema-Checks
-conflict_resolver.py      # Intelligente Konfliktauflösung
-arxml_reporter.py         # Berichtserstellung
-web_interface.py          # Moderne Web-UI
-config.py                 # Konfigurationsmanagement
-utils.py                  # Utility-Funktionen
-main.py                   # CLI-Interface
+📦 ARXML_Merger/
+├── 🐍 Python-Module (Kern-Funktionalität)
+│   ├── main.py                    # Haupt-CLI-Interface
+│   ├── arxml_merger_engine.py     # Kern-Merge-Engine
+│   ├── arxml_validator.py         # Validierung und Schema-Checks
+│   ├── conflict_resolver.py       # Intelligente Konfliktauflösung
+│   ├── arxml_reporter.py          # Berichtserstellung
+│   ├── web_interface.py           # Moderne Web-UI
+│   ├── config.py                  # Konfigurationsmanagement
+│   └── utils.py                   # Utility-Funktionen
+│
+├── 🌐 HTML-Versionen (Standalone)
+│   ├── arxml_merger_working.html     # ✅ Funktioniert garantiert
+│   ├── arxml_merger_standalone.html  # ✅ Erweiterte Version
+│   ├── arxml_merger_simple.html      # ✅ Einfache Version
+│   └── download.html                 # Download-Seite
+│
+├── ⚙️ Setup & Konfiguration
+│   ├── requirements.txt           # Python-Dependencies
+│   ├── START.bat                  # Windows-Schnellstart
+│   ├── INSTALL.bat               # Windows-Installer
+│   └── arxml_merger_config.json  # Konfigurationsdatei
+│
+├── 📚 Dokumentation
+│   ├── README.md                 # Hauptdokumentation
+│   ├── BENUTZERANLEITUNG.md      # Einfache Anleitung für alle
+│   ├── TROUBLESHOOTING.md        # Problemlösungen
+│   ├── ANLEITUNG.txt            # Kurze Anleitung
+│   └── RELEASE_NOTES.md         # Versionshinweise
+│
+└── 📁 Beispiele
+    └── examples/
+        ├── conflict_rules.json   # Beispiel-Konfliktregeln
+        └── sample_config.json   # Beispiel-Konfiguration
 ```
 
 ### Eigene Merge-Strategien hinzufügen
@@ -579,6 +615,8 @@ black *.py
 
 ## 📞 Support
 
+- **🚨 Probleme?**: [TROUBLESHOOTING.md](TROUBLESHOOTING.md) - Häufige Probleme und Lösungen
+- **📖 Benutzeranleitung**: [BENUTZERANLEITUNG.md](BENUTZERANLEITUNG.md) - Einfache Schritt-für-Schritt-Anleitung
 - **Issues**: [GitHub Issues](https://github.com/Asafphilipp/ARXML_Merger/issues)
 - **Dokumentation**: Siehe `docs/` Verzeichnis
 - **Beispiele**: Siehe `examples/` Verzeichnis
@@ -593,5 +631,27 @@ black *.py
 
 ---
 
+---
+
+## 🎉 **Version 2.0.0 - Sauber, Stabil, Professionell**
+
+### ✅ **Was ist neu:**
+- 🧹 **Repository bereinigt** - Nur funktionsfähige Dateien
+- 📁 **Klare Struktur** - Logische Organisation
+- 🌐 **3 HTML-Versionen** - Alle getestet und funktionsfähig
+- 📖 **Umfassende Dokumentation** - Für alle Nutzergruppen
+- 🚨 **Troubleshooting** - Detaillierte Problemlösungen
+- 🏷️ **Versionierung** - Professionelle Release-Verwaltung
+
+### 🎯 **Für jeden das Richtige:**
+- **📖 Alle Benutzer**: [BENUTZERANLEITUNG.md](BENUTZERANLEITUNG.md)
+- **🚨 Probleme**: [TROUBLESHOOTING.md](TROUBLESHOOTING.md)
+- **🔧 Entwickler**: Saubere Python-Module
+- **📦 IT**: Automatische Release-Pakete
+
+---
+
 **Entwickelt für professionelle AUTOSAR-Entwicklung** 🚗⚡
+
+**🚀 Jetzt sauber, stabil und einfach zu verwenden!**
 
