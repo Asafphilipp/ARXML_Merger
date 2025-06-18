@@ -1,9 +1,7 @@
-# ARXML Merger - Git Ignore File
-
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
-*$py.class
+*.class
 *.so
 .Python
 build/
@@ -53,11 +51,6 @@ Thumbs.db
 *.bak
 *.backup
 
-# Release files (generated)
-releases/
-*.zip
-*.tar.gz
-
 # Test files
 test_*.arxml
 *_test.arxml
@@ -69,6 +62,7 @@ reports/
 *.csv
 *.json
 !examples/*.json
+!arxml_merger_working.html
 
 # User-specific config
 user_config.json
@@ -86,23 +80,3 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# pyenv
-.python-version
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
